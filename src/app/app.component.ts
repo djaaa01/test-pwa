@@ -20,7 +20,7 @@ export class AppComponent {
 
   notify(): void {
     this.notificationService.showNotification('Notificare PWA', {
-      body: 'Bommmba !!!!',
+      body: 'Bommmba !!!!!!',
     });
   }
 }
