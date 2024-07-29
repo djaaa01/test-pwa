@@ -36,6 +36,10 @@
                 position: relative;
                 cursor: pointer;
             }
+
+            img {
+                width: 100%;
+            }
         }
     }
 }
@@ -67,4 +71,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
+}
+
+.tui-image-editor-container {
+    height: 1000px !important;
 }

@@ -3,3 +3,29 @@ body {
     background-color: #141414;
     color: white;
 }
+
+
+
+.tui-image-editor-header-buttons {
+    div {
+        display: none !important;
+    }
+}
+
+.tui-image-editor-header-logo {
+    display: none;
+}
+
+.tui-image-editor-help-menu .top {
+    display: none;
+}
+
+.tui-image-editor-header-buttons {
+    float: unset !important;
+    height: 145px;
+    display: flex;
+    align-items: flex-end;
+    z-index: 1;
+    position: relative;
+}
+

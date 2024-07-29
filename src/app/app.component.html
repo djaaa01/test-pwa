@@ -1,6 +1,6 @@
 
   
-  <div class="demo-app">
+  <div *ngIf="!isEdit" class="demo-app">
     <div class="demo-app__title">
       <span>Demo app Angular + PWA</span>
     </div>
@@ -21,19 +21,33 @@
           <span>Switch Camera</span>
         </div>
       </div>
-      <div class="demo-app__content__item demo-app__content__item--camera">
+      <div *ngIf="image.length === 0" class="demo-app__content__item demo-app__content__item--camera">
          <div (click)="startCamera()" *ngIf="!currentStream" class="camera-icon">
           <app-camera-icon ></app-camera-icon>
         </div>
         <video #videoElement autoplay></video>
         <canvas #canvas style="display:none;"></canvas>
       </div>
-      <div class="demo-app__content__item">
-        <div *ngIf="currentStream" class="button" (click)="takePicture()">
+      <div *ngIf="currentStream" class="demo-app__content__item">
+        <div class="button" (click)="takePicture()">
           <span>Take Picture</span>
         </div>
       </div>
+      <div *ngIf="image.length" class="demo-app__content__item">
+        <img [src]="image" alt="">
+      </div>
+      <div (click)="onEdit()" *ngIf="image.length" class="button">
+        <span>Edit</span>
+      </div>
     </div>
+  </div>
+
+
+  <div (click)="onBack()" *ngIf="isEdit" class="button">
+    <span>Back</span>
+  </div>
+  <div  #tuiRef style="height: 1000px !important">
+    <canvas *ngIf="isEdit"></canvas>
   </div>
 
 

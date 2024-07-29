@@ -1,9 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NotificationService } from './services/notification.service';
 import { SwPush } from '@angular/service-worker';
 import { NgIf } from '@angular/common';
 import { CameraIconComponent } from './camera-icon/camera-icon.component';
+import ImageEditor from 'tui-image-editor';
 
 @Component({
   selector: 'app-root',
@@ -12,21 +13,52 @@ import { CameraIconComponent } from './camera-icon/camera-icon.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   constructor(private notificationService: NotificationService, readonly swPush: SwPush) {}
+  private _tuiImageEditor!: ImageEditor;
+
+  image: string = '';
 
   title = 'test-pwa';
   deferredPrompt: any;
   showInstallButton: boolean = false;
   currentStream: MediaStream | null = null;
   isFrontCamera: boolean = true;
+  isEdit = false;
 
   
   @ViewChild('videoElement', { static: false }) videoElement!: ElementRef;
   @ViewChild('canvas', { static: false }) canvas!: ElementRef;
+  @ViewChild('tuiRef') private _tuiRef!: ElementRef<HTMLDivElement>;
 
   ngOnInit(): void {
     this.notificationService.requestPermission();
+  }
+
+  ngAfterViewInit(): void {
+  }
+
+  private _createImageEditor() {
+    this._tuiImageEditor = new ImageEditor(this._tuiRef.nativeElement, {
+      includeUI: {
+        loadImage: {
+          path: this.image,
+          name: 'SampleImage',
+        },
+        initMenu: 'filter',
+        menuBarPosition: 'bottom',
+      },
+      cssMaxWidth: 700,
+      cssMaxHeight: 500,
+      selectionStyle: {
+        cornerSize: 20,
+        rotatingPointOffset: 70,
+      },
+    });
+
+
+    // Add a picture into your assets folder to test.
+    this._tuiImageEditor.loadImageFromURL('', 'My example picture');
   }
 
   notify(): void {
@@ -52,6 +84,7 @@ export class AppComponent {
   }
 
   async startCamera() {
+    this.image = '';
     this.stopCamera();
 
     const constraints = {
@@ -91,8 +124,9 @@ export class AppComponent {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const dataUrl = canvas.toDataURL('image/png');
-      this.downloadImage(dataUrl);
+      this.image = canvas.toDataURL('image/png');
+      this.stopCamera();
+      // this.downloadImage(dataUrl);
     }
   }
 
@@ -101,5 +135,14 @@ export class AppComponent {
     link.href = dataUrl;
     link.download = 'picture.png';
     link.click();
+  }
+
+  onBack(): void {
+    location.reload();
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+    this._createImageEditor();
   }
 }
