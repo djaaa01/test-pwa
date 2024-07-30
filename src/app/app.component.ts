@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NotificationService } from './services/notification.service';
-import { SwPush } from '@angular/service-worker';
 import { NgIf } from '@angular/common';
 import { CameraIconComponent } from './camera-icon/camera-icon.component';
 import ImageEditor from 'tui-image-editor';
+import { PushNotificationService } from './services/push-notifi.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ import ImageEditor from 'tui-image-editor';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements AfterViewInit {
-  constructor(private notificationService: NotificationService, readonly swPush: SwPush) {}
+  constructor(private notificationService: NotificationService, private pushService: PushNotificationService) {}
   private _tuiImageEditor!: ImageEditor;
 
   image: string = '';
@@ -33,6 +33,9 @@ export class AppComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.notificationService.requestPermission();
+
+    this.pushService.subscribeToNotifications();
+    this.pushService.listenForNotifications();
   }
 
   ngAfterViewInit(): void {
