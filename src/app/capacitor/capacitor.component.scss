@@ -5,7 +5,9 @@
 
   &__item {
     margin: auto;
-    
+    width: 100%;
+    display: flex;
+
     img {
       width: auto;
       height: 270px;

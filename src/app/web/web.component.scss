@@ -1,0 +1,59 @@
+.demo-app {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    &__title {
+        margin-top: 30px;
+        font-weight: bold;
+        font-size: 24px;
+        text-align: center;
+        
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+
+        &__item {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+
+            video {
+                width: 100%;
+                height: 270px;
+                background-color: #282828;
+            }
+
+            &--camera {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                cursor: pointer;
+            }
+
+            img {
+                width: auto;
+                height: 270px;
+                margin: auto;
+            }
+        }
+    }
+}
+
+.camera-icon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.tui-image-editor-container {
+    height: 1000px !important;
+}

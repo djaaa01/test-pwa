@@ -1,54 +1,12 @@
-<div *ngIf="!isEdit" class="demo-app">
-  <div class="demo-app__content">
-    <div class="demo-app__content__item">
-      <div class="button" (click)="notify()">
-        <span>Send Notification</span>
-      </div>
-    </div>
-    <div class="demo-app__content__item">
-      <div class="button" routerLink="/capacitor" >
-        <span>Test Capacitor</span>
-      </div>
-    </div>
-    <div class="demo-app__content__item">
-      <div *ngIf="!currentStream" class="button" (click)="startCamera()">
-        <span>Start Camera</span>
-      </div>
-      <div *ngIf="currentStream" class="button" (click)="stopCamera()">
-        <span>Stop Camera</span>
-      </div>
-      <div class="button" (click)="switchCamera()">
-        <span>Switch Camera</span>
-      </div>
-    </div>
-    <div
-      *ngIf="image.length === 0"
-      class="demo-app__content__item demo-app__content__item--camera"
-    >
-      <div (click)="startCamera()" *ngIf="!currentStream" class="camera-icon">
-        <app-camera-icon></app-camera-icon>
-      </div>
-      <video #videoElement autoplay></video>
-      <canvas #canvas style="display: none"></canvas>
-    </div>
-    <div *ngIf="currentStream" class="demo-app__content__item">
-      <div class="button" (click)="takePicture()">
-        <span>Take Picture</span>
-      </div>
-    </div>
-    <div *ngIf="image.length" class="demo-app__content__item">
-      <img [src]="image" alt="" />
-    </div>
-    <div (click)="onEdit()" *ngIf="image.length" class="button">
-      <span>Edit</span>
+<div class="home">
+  <div class="home__content__item">
+    <div class="button" routerLink="/web">
+      <span>Test Web</span>
     </div>
   </div>
-</div>
-
-<div (click)="onBack()" style="margin-bottom: 10px" *ngIf="isEdit" class="button">
-  <span>Back</span>
-</div>
-
-<div *ngIf="isEdit" [style]="isEdit ? 'height: 1000px !important' : ''">
-  <app-edit-photo></app-edit-photo>
+  <div class="home__content__item">
+    <div class="button" routerLink="/capacitor">
+      <span>Test Capacitor</span>
+    </div>
+  </div>
 </div>
