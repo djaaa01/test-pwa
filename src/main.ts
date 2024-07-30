@@ -1,8 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideServiceWorker, ServiceWorkerModule } from '@angular/service-worker';
+import {
+  provideServiceWorker,
+  ServiceWorkerModule,
+} from '@angular/service-worker';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { appConfig } from './app/app.config';
 
 function setDefaultLanguage() {
   const defaultLanguage = 'en';
@@ -12,10 +16,9 @@ function setDefaultLanguage() {
 
 setDefaultLanguage();
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideServiceWorker('ngsw-worker.js', {
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-  ]
-}).catch(err => console.error(err));
+bootstrapApplication(AppComponent, appConfig).catch((err) =>
+  console.error(err)
+);
+
+
+

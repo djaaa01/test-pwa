@@ -1,0 +1,20 @@
+<div *ngIf="!isEdit" class="capacitor">
+  <div class="capacitor__item">
+    <div routerLink="/home" class="button"><span>Back home</span></div>
+  </div>
+  <div class="capacitor__item">
+    <div (click)="onCamera()" class="button"><span>Take picture</span></div>
+  </div>
+  <div *ngIf="picture?.length" class="capacitor__item">
+    <img [src]="picture" alt="" />
+  </div>
+  <div *ngIf="picture?.length" class="capacitor__item">
+    <div (click)="onEdit()" class="button"><span>Edit</span></div>
+  </div>
+</div>
+<div (click)="onBack()" style="margin-bottom: 10px" *ngIf="isEdit" class="button">
+  <span>Back</span>
+</div>
+<div *ngIf="isEdit" [style]="isEdit ? 'height: 1000px !important' : ''">
+  <app-edit-photo></app-edit-photo>
+</div>
