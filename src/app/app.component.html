@@ -46,7 +46,7 @@
   <div (click)="onBack()" *ngIf="isEdit" class="button">
     <span>Back</span>
   </div>
-  <div  #tuiRef style="height: 1000px !important">
+  <div  #tuiRef [style]="isEdit ? 'height: 1000px !important' : ''">
     <canvas *ngIf="isEdit"></canvas>
   </div>
 
